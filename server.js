@@ -1,14 +1,24 @@
 import express from 'express';
 import cors from 'cors';
 import { generate } from './fronted/chatbot.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express()
 const port = 3001;
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'fronted')));
 
 app.get('/', (req, res) => {
-  res.send('Welcome to CHATOPT!')
+  res.sendFile(path.join(__dirname, 'fronted', 'index.html'));
+});
+
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`Server is running`);
 });
 
 app.post('/chat', async (req, res) => {
