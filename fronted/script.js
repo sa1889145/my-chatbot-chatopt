@@ -39,7 +39,7 @@ async function generate(text) {
    
 }
    async function callServer(inputText) {
-       const response = await fetch("/chat", {
+       const response = await fetch("http://localhost:3001/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
